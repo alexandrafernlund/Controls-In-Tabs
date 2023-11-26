@@ -29,6 +29,7 @@ namespace Controls
             InitializeTabControl();
             tab1_load();
             tab2_load();
+            tab3_load();
 
             fontType.SelectedItem = "Times New Roman";
         }
@@ -41,8 +42,10 @@ namespace Controls
 
             TabPage tabPage1 = new TabPage("Tab 1");
             TabPage tabPage2 = new TabPage("Tab 2");
+            TabPage tabPage3 = new TabPage("Tab 3");
             myTabControl.TabPages.Add(tabPage1);
             myTabControl.TabPages.Add(tabPage2);
+            myTabControl.TabPages.Add(tabPage3);
         }
 
         private void tab1_load()
@@ -164,26 +167,68 @@ namespace Controls
 
         private void fontChange(object? sender, EventArgs e)
         {
-                string font = fontType.SelectedItem?.ToString();
-                int Size;
-                int.TryParse(fontSize.SelectedItem.ToString(), out Size);
-                if (radioButton1.Checked)
-                {
-                    formatText.Font = new Font(font, Size);
-                }
-                else if (radioButton2.Checked)
-                {
-                    formatText.Font = new Font(font, Size, FontStyle.Bold);
-                }
-                else if (radioButton3.Checked)
-                {
-                    formatText.Font = new Font(font, Size, FontStyle.Italic);
-                }
-                else if (radioButton4.Checked)
-                {
-                    formatText.Font = new Font(font, Size, FontStyle.Underline);
-                }
+            string font = fontType.SelectedItem?.ToString();
+            int Size;
+            int.TryParse(fontSize.SelectedItem.ToString(), out Size);
+            if (radioButton1.Checked)
+            {
+                formatText.Font = new Font(font, Size);
+            }
+            else if (radioButton2.Checked)
+            {
+                formatText.Font = new Font(font, Size, FontStyle.Bold);
+            }
+            else if (radioButton3.Checked)
+            {
+                formatText.Font = new Font(font, Size, FontStyle.Italic);
+            }
+            else if (radioButton4.Checked)
+            {
+                formatText.Font = new Font(font, Size, FontStyle.Underline);
+            }
         }
 
+        private void tab3_load()
+        {
+            FlowLayoutPanel panel = new FlowLayoutPanel();
+            panel.AutoSize = true;
+            panel.FlowDirection = FlowDirection.TopDown;
+
+            Random random = new Random();
+
+            for (int i = 0; i <= 3; i++)
+            {
+                FlowLayoutPanel rowPanel = new FlowLayoutPanel();
+                rowPanel.FlowDirection = FlowDirection.LeftToRight;
+                rowPanel.AutoSize = true;
+
+                for (int j = 0; j < 3; j++)
+                {
+                    Button randomColor = new Button();
+                    randomColor.Size = new Size(90, 90);
+                    rowPanel.Controls.Add(randomColor);
+
+                    int red = random.Next(256);
+                    int green = random.Next(256);
+                    int blue = random.Next(256);
+
+                    randomColor.Click += (sender, e) =>
+                    {
+                        int newRed = random.Next(256);
+                        int newGreen = random.Next(256);
+                        int newBlue = random.Next(256);
+
+                        randomColor.BackColor = Color.FromArgb(newRed, newGreen, newBlue);
+                    };
+
+                    rowPanel.Controls.Add(randomColor);
+
+                }
+
+                panel.Controls.Add(rowPanel);
+            }
+
+            tab3.Controls.Add(panel);
+        }
     }
 }
