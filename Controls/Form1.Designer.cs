@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             tabPages = new TabControl();
-            tabPage1 = new TabPage();
+            tab1 = new TabPage();
             tab2 = new TabPage();
             tab3 = new TabPage();
             tabPages.SuspendLayout();
@@ -37,7 +37,7 @@
             // 
             // tabPages
             // 
-            tabPages.Controls.Add(tabPage1);
+            tabPages.Controls.Add(tab1);
             tabPages.Controls.Add(tab2);
             tabPages.Controls.Add(tab3);
             tabPages.Location = new Point(0, -1);
@@ -46,22 +46,22 @@
             tabPages.Size = new Size(801, 484);
             tabPages.TabIndex = 0;
             // 
-            // tabPage1
+            // tab1
             // 
-            tabPage1.Location = new Point(4, 34);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(793, 446);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "Namnlista";
-            tabPage1.UseVisualStyleBackColor = true;
+            tab1.Location = new Point(4, 34);
+            tab1.Name = "tab1";
+            tab1.Padding = new Padding(3);
+            tab1.Size = new Size(793, 446);
+            tab1.TabIndex = 0;
+            tab1.Text = "Namnlista";
+            tab1.UseVisualStyleBackColor = true;
             // 
             // tab2
             // 
             tab2.Location = new Point(4, 34);
             tab2.Name = "tab2";
             tab2.Padding = new Padding(3);
-            tab2.Size = new Size(793, 0);
+            tab2.Size = new Size(793, 446);
             tab2.TabIndex = 1;
             tab2.Text = "Formatera Text";
             tab2.UseVisualStyleBackColor = true;
@@ -71,7 +71,7 @@
             tab3.Location = new Point(4, 34);
             tab3.Name = "tab3";
             tab3.Padding = new Padding(3);
-            tab3.Size = new Size(793, 0);
+            tab3.Size = new Size(793, 446);
             tab3.TabIndex = 2;
             tab3.Text = "Loopa Controls";
             tab3.UseVisualStyleBackColor = true;
@@ -92,7 +92,7 @@
         #endregion
 
         private TabControl tabPages;
-        private TabPage tabPage1;
+        private TabPage tab1;
         private TabPage tab2;
         private TabPage tab3;
     }

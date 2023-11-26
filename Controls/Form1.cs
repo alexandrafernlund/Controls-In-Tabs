@@ -1,6 +1,7 @@
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
+
 namespace Controls
 {
     public partial class Form1 : Form
@@ -11,10 +12,16 @@ namespace Controls
         Button addName;
         Button sortList;
         RichTextBox names;
-        RichTextBox namesList;
 
         ComboBox fontSize;
         ComboBox fontType;
+        RadioButton radioButton1;
+        RadioButton radioButton2;
+        RadioButton radioButton3;
+        RadioButton radioButton4;
+        RichTextBox formatText;
+
+        List<string> nameList1 = new List<string>();
 
         public Form1()
         {
@@ -22,7 +29,6 @@ namespace Controls
             InitializeTabControl();
             tab1_load();
             tab2_load();
-            tab3_load();
         }
 
         private void InitializeTabControl()
@@ -33,11 +39,8 @@ namespace Controls
 
             TabPage tabPage1 = new TabPage("Tab 1");
             TabPage tabPage2 = new TabPage("Tab 2");
-            TabPage tabPage3 = new TabPage("Tab 3");
-
             myTabControl.TabPages.Add(tabPage1);
             myTabControl.TabPages.Add(tabPage2);
-            myTabControl.TabPages.Add(tabPage3);
         }
 
         private void tab1_load()
@@ -66,10 +69,10 @@ namespace Controls
             names.Size = new Size(350, 300);
             names.ReadOnly = false;
 
-            tabPage1.Controls.Add(writeName);
-            tabPage1.Controls.Add(addName);
-            tabPage1.Controls.Add(sortList);
-            tabPage1.Controls.Add(names);
+            tab1.Controls.Add(writeName);
+            tab1.Controls.Add(addName);
+            tab1.Controls.Add(sortList);
+            tab1.Controls.Add(names);
         }
 
         private void writeName_Click(object sender, EventArgs e)
@@ -93,16 +96,90 @@ namespace Controls
 
         private void tab2_load()
         {
-            TabPage tabPage2 = myTabControl.TabPages[1];
-            
-        }
-        private void tab3_load()
-        {
+            Panel panel = new Panel();
+            panel.AutoSize = true;
 
-            TabPage tabPage2 = myTabControl.TabPages[2];
-           
+            fontSize = new ComboBox();
+            fontSize.Location = new Point(10, 50);
+            for (int i = 10; i < 25; i += 2)
+            {
+                fontSize.Items.Add(i.ToString());
+            }
+            fontSize.SelectedIndex = 0;
+            fontSize.SelectedIndexChanged += fontChange;
+            panel.Controls.Add(fontSize);
+
+            fontType = new ComboBox();
+            fontType.Location = new Point(fontSize.Location.X, fontSize.Location.Y + 35);
+            fontType.Items.Add("Times New Roman");
+            fontType.Items.Add("Verdana");
+            fontType.Items.Add("Georgia");
+            fontType.SelectedIndexChanged += fontChange;
+            panel.Controls.Add(fontType);
+
+            formatText = new RichTextBox();
+            formatText.Size = new Size(350, 300);
+            formatText.Location = new Point(fontSize.Width + 40, fontSize.Location.Y);
+            string font = fontType.SelectedItem?.ToString();
+            panel.Controls.Add(formatText);
+
+            radioButton1 = new RadioButton();
+            radioButton1.Location = new Point(fontType.Location.X, fontType.Location.Y + 40);
+            radioButton1.Text = ("No type");
+            panel.Controls.Add(radioButton1);
+            radioButton1.CheckedChanged += fontChange;
+
+            radioButton2 = new RadioButton();
+            radioButton2.Location = new Point(radioButton1.Location.X, radioButton1.Location.Y + 20);
+            radioButton2.Text = ("Bold");
+            panel.Controls.Add(radioButton2);
+            radioButton2.CheckedChanged += fontChange;
+
+            radioButton3 = new RadioButton();
+            radioButton3.Location = new Point(radioButton2.Location.X, radioButton2.Location.Y + 20);
+            radioButton3.Text = ("Cursive");
+            panel.Controls.Add(radioButton3);
+            radioButton3.CheckedChanged += fontChange;
+
+            radioButton4 = new RadioButton();
+            radioButton4.Location = new Point(radioButton3.Location.X, radioButton3.Location.Y + 20);
+            radioButton4.Text = ("Underline");
+            panel.Controls.Add(radioButton4);
+            radioButton4.CheckedChanged += fontChange;
+
+            panel.Location = new Point(ClientSize.Width / 2 - panel.Width / 2, ClientSize.Height / 2 - panel.Width / 2);
+
+            tab2.Controls.Add(fontSize);
+            tab2.Controls.Add(fontType);
+            tab2.Controls.Add(radioButton1);
+            tab2.Controls.Add(radioButton2);
+            tab2.Controls.Add(radioButton3);
+            tab2.Controls.Add(radioButton4);
+            tab2.Controls.Add(formatText);
+        }
+
+        private void fontChange(object? sender, EventArgs e)
+        {
+                string font = fontType.SelectedItem.ToString();
+                int Size;
+                int.TryParse(fontSize.SelectedItem.ToString(), out Size);
+                if (radioButton1.Checked)
+                {
+                    formatText.Font = new Font(font, Size);
+                }
+                else if (radioButton2.Checked)
+                {
+                    formatText.Font = new Font(font, Size, FontStyle.Bold);
+                }
+                else if (radioButton3.Checked)
+                {
+                    formatText.Font = new Font(font, Size, FontStyle.Italic);
+                }
+                else if (radioButton4.Checked)
+                {
+                    formatText.Font = new Font(font, Size, FontStyle.Underline);
+                }
         }
 
     }
-
 }
