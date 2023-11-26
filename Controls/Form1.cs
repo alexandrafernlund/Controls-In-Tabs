@@ -29,6 +29,8 @@ namespace Controls
             InitializeTabControl();
             tab1_load();
             tab2_load();
+
+            fontType.SelectedItem = "Times New Roman";
         }
 
         private void InitializeTabControl()
@@ -120,6 +122,7 @@ namespace Controls
             formatText = new RichTextBox();
             formatText.Size = new Size(350, 300);
             formatText.Location = new Point(fontSize.Width + 40, fontSize.Location.Y);
+            formatText.Text = "Format me!";
             string font = fontType.SelectedItem?.ToString();
             panel.Controls.Add(formatText);
 
@@ -128,6 +131,7 @@ namespace Controls
             radioButton1.Text = ("No type");
             panel.Controls.Add(radioButton1);
             radioButton1.CheckedChanged += fontChange;
+            radioButton1.Checked = true;
 
             radioButton2 = new RadioButton();
             radioButton2.Location = new Point(radioButton1.Location.X, radioButton1.Location.Y + 20);
@@ -160,7 +164,7 @@ namespace Controls
 
         private void fontChange(object? sender, EventArgs e)
         {
-                string font = fontType.SelectedItem.ToString();
+                string font = fontType.SelectedItem?.ToString();
                 int Size;
                 int.TryParse(fontSize.SelectedItem.ToString(), out Size);
                 if (radioButton1.Checked)
